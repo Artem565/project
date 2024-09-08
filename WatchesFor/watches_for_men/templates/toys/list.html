@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title_name %}
+    Товары: Часы
+{% endblock %}
+
+{% block content %}
+    <h1>Товары: Часы</h1>
+    <div class="row">
+        {% for object in object_list %}
+            {% include '_inc/_card.html' with photo_need=True url_name='watches_detail' %}
+        {% empty %}
+            <h2>Товаров нет в наличии</h2>
+        {% endfor %}
+    </div>
+{% endblock %}

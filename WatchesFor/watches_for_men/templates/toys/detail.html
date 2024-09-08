@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title_name %}
+    Подробнее о часах
+{% endblock %}
+
+{% block content %}
+    <div class="p-3">
+        <h1>Подробнее о часах {{ object.name }}</h1>
+        <table class="table table-bordered my-2">
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Стоимость</th>
+                <th>Производитель</th>
+                <th>Категория</th>
+                <th>Изображение</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ object.name }}</td>
+                <td>
+                    {% if object.description %}
+                        {{ object.description }}
+                    {% else %}
+                        Описание отсутствует
+                    {% endif %}
+                </td>
+                <td>{{ object.price }} Руб.</td>
+                <td>{{ object.maker.name }}</td>
+                <td>
+                    <ul>
+                        {% for category in object.category.all %}
+                            <li>{{ category.name }}</li>
+                        {% empty %}
+                            <li>Нет категорий</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    {% if object.photo %}
+                        <img src="{{ object.photo.url }}" class="card-img-top" alt="...">
+                    {% else %}
+                        <img src="{% static 'shop/image/no_photo.jpg' %}" class="card-img-top" alt="...">
+                    {% endif %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="{% url 'watches_list' %}" class="btn btn-outline-warning my-2">Обратно к каталогу</a>
+    </div>
+{% endblock %}
